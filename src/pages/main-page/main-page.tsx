@@ -1,5 +1,6 @@
 import OfferCard from '../../components/offer-card/offer-card';
 import Header from '../../components/header/header';
+import { AuthorizationStatus } from '../../const';
 
 type MainPageProps = {
   offersAmount: number;
@@ -9,7 +10,8 @@ type MainPageProps = {
 function MainPage({offersAmount}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <Header />
+      <Header authorizationStatus={AuthorizationStatus.NotAuth}/>
+
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -69,11 +71,9 @@ function MainPage({offersAmount}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferCard />
-                <OfferCard />
-                <OfferCard />
-                <OfferCard />
-                <OfferCard />
+                {
+                  Array.from({ length: offersAmount }, (_, i) => <OfferCard offerId={i + 1} key={i} authorizationStatus={AuthorizationStatus.NotAuth}/>)
+                }
               </div>
             </section>
             <div className="cities__right-section">

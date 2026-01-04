@@ -1,9 +1,15 @@
 import Header from '../../components/header/header';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { AuthorizationStatus } from '../../const';
 
 function FavoritesPage(): JSX.Element {
   return (
     <div className="page">
-      <Header />
+      <Helmet>
+        <title>6 Cities. Избранное</title>
+      </Helmet>
+      <Header authorizationStatus={AuthorizationStatus.NotAuth}/>
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
@@ -135,9 +141,9 @@ function FavoritesPage(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to='/'>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
+        </Link>
       </footer>
     </div>
   );

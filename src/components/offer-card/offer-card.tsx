@@ -1,15 +1,24 @@
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthorizationStatus } from '../../const';
 
 
-function OfferCard(): JSX.Element {
+type OfferCardProps = {
+  authorizationStatus: AuthorizationStatus;
+  offerId: number;
+}
+
+function OfferCard({authorizationStatus, offerId}: OfferCardProps): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`/offer/${offerId}`}>
           <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -17,12 +26,19 @@ function OfferCard(): JSX.Element {
             <b className="place-card__price-value">€120</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {
+            <button className="place-card__bookmark-button button" type="button" onClick={() => {
+              if (authorizationStatus !== AuthorizationStatus.Auth) {
+                navigate('/login');
+              }
+            }}
+            >
+              <svg className="place-card__bookmark-icon" width={18} height={19}>
+                <use xlinkHref="#icon-bookmark" />
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button>
+          }
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -31,7 +47,7 @@ function OfferCard(): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+          <Link to={`/offer/${offerId}`}>Beautiful &amp; luxurious apartment at great location</Link>
         </h2>
         <p className="place-card__type">Apartment</p>
       </div>
